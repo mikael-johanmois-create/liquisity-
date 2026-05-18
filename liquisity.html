@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Liquisity — Premium AirPods Cases</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Bebas+Neue&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --white:   #ffffff;
+      --off:     #f5f4f2;
+      --silver:  #c8c8c8;
+      --chrome:  #a8b0b8;
+      --ink:     #111111;
+      --mid:     #555555;
+      --light:   #999999;
+      --accent:  #8a9ba8;
+      --border:  rgba(0,0,0,0.08);
+      --shadow:  0 2px 40px rgba(0,0,0,0.07);
+    }
+
+    /* ── RESET ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--white);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ── MARQUEE ─────────────────────────────────────────────── */
+    .marquee-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--off);
+      padding: 10px 0;
+    }
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      animation: marquee 22s linear infinite;
+      width: max-content;
+    }
+    .marquee-item {
+      white-space: nowrap;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--mid);
+      padding: 0 32px;
+    }
+    .marquee-item::after {
+      content: '·';
+      margin-left: 32px;
+      color: var(--silver);
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--mid);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border: 1px solid var(--ink);
+      padding: 9px 22px;
+      color: var(--ink);
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: var(--ink); color: var(--white); }
+
+    /* ── HERO ────────────────────────────────────────────────── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 64px);
+      overflow: hidden;
+    }
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 64px 80px 64px;
+      position: relative;
+    }
+    .hero-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--light);
+      margin-bottom: 28px;
+    }
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(72px, 9vw, 130px);
+      line-height: 0.92;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .hero-title .silver-word {
+      color: var(--chrome);
+    }
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(20px, 2.5vw, 32px);
+      font-style: italic;
+      font-weight: 300;
+      color: var(--mid);
+      margin-bottom: 40px;
+    }
+    .hero-desc {
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--mid);
+      max-width: 360px;
+      margin-bottom: 48px;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      background: var(--ink);
+      color: var(--white);
+      padding: 14px 32px;
+      border: 1px solid var(--ink);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-primary:hover { background: #333; }
+    .btn-ghost {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      background: transparent;
+      color: var(--ink);
+      padding: 14px 32px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--ink); }
+
+    /* decorative line */
+    .hero-line {
+      position: absolute;
+      top: 0; bottom: 0; right: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--border) 30%, var(--border) 70%, transparent);
+    }
+
+    /* hero right — product image */
+    .hero-right {
+      background: var(--off);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(168,176,184,0.18) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .hero-product {
+      width: 72%;
+      max-width: 480px;
+      filter: drop-shadow(0 24px 64px rgba(0,0,0,0.13));
+      animation: float 5s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(-2deg); }
+      50%       { transform: translateY(-18px) rotate(1deg); }
+    }
+
+    /* corner label */
+    .hero-corner-label {
+      position: absolute;
+      bottom: 36px;
+      right: 36px;
+      text-align: right;
+    }
+    .hero-corner-label span {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--light);
+      line-height: 1.9;
+    }
+
+    /* ── FEATURES STRIP ─────────────────────────────────────── */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .feature {
+      padding: 56px 48px;
+      border-right: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .feature:last-child { border-right: none; }
+    .feature:hover { background: var(--off); }
+    .feature-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px;
+      font-weight: 300;
+      color: rgba(0,0,0,0.06);
+      position: absolute;
+      top: 24px; right: 28px;
+      line-height: 1;
+    }
+    .feature-title {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+    .feature-desc {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--mid);
+    }
+
+    /* ── PRODUCT DETAIL ─────────────────────────────────────── */
+    .detail {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 120px 64px;
+      gap: 80px;
+    }
+    .detail-img-wrap {
+      background: var(--off);
+      padding: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .detail-img-wrap img {
+      width: 85%;
+      filter: drop-shadow(0 20px 50px rgba(0,0,0,0.10));
+    }
+    .detail-badge {
+      position: absolute;
+      top: 24px; left: 24px;
+      background: var(--ink);
+      color: var(--white);
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+    }
+    .detail-content h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4vw, 58px);
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: 28px;
+    }
+    .detail-content h2 em {
+      font-style: italic;
+      color: var(--chrome);
+    }
+    .detail-content p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--mid);
+      margin-bottom: 40px;
+    }
+    .spec-list {
+      list-style: none;
+      margin-bottom: 48px;
+    }
+    .spec-list li {
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      color: var(--mid);
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .spec-list li::before {
+      content: '';
+      width: 20px; height: 1px;
+      background: var(--chrome);
+      flex-shrink: 0;
+    }
+
+    /* ── EMAIL SECTION ──────────────────────────────────────── */
+    .email-section {
+      background: var(--off);
+      border-top: 1px solid var(--border);
+      padding: 120px 64px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .email-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--light);
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+      padding: 6px 18px;
+    }
+    .email-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 8vw, 110px);
+      line-height: 0.9;
+      color: var(--ink);
+      margin-bottom: 12px;
+      letter-spacing: 0.01em;
+    }
+    .email-title .thin {
+      color: var(--chrome);
+    }
+    .email-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 20px;
+      color: var(--mid);
+      margin-bottom: 52px;
+    }
+    .email-form {
+      display: flex;
+      gap: 0;
+      max-width: 480px;
+      width: 100%;
+      border: 1px solid var(--ink);
+    }
+    .email-form input {
+      flex: 1;
+      padding: 16px 22px;
+      border: none;
+      outline: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      background: var(--white);
+      color: var(--ink);
+    }
+    .email-form input::placeholder { color: var(--light); letter-spacing: 0.04em; }
+    .email-form button {
+      background: var(--ink);
+      color: var(--white);
+      border: none;
+      padding: 16px 28px;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: background 0.2s;
+    }
+    .email-form button:hover { background: #333; }
+
+    /* ── FOOTER ──────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 400;
+    }
+    .footer-copy {
+      font-size: 11px;
+      color: var(--light);
+      letter-spacing: 0.06em;
+    }
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--light);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--ink); }
+
+    /* ── FADE-IN ON SCROLL ───────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 60px 28px; }
+      .hero-right { min-height: 50vw; }
+      .features { grid-template-columns: 1fr; }
+      .feature { border-right: none; border-bottom: 1px solid var(--border); }
+      .detail { grid-template-columns: 1fr; padding: 60px 28px; }
+      .email-section { padding: 80px 28px; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Liquisity</div>
+    <ul class="nav-links">
+      <li><a href="#">Shop</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Materials</a></li>
+      <li><a href="#">Care</a></li>
+    </ul>
+    <a href="#" class="nav-cta">Shop Now</a>
+  </nav>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <!-- duplicate for seamless loop -->
+      <span class="marquee-item">Chrome Finish</span>
+      <span class="marquee-item">Precision Fit</span>
+      <span class="marquee-item">Mirror Polish</span>
+      <span class="marquee-item">AirPods Pro Compatible</span>
+      <span class="marquee-item">Shiny Silver Shell</span>
+      <span class="marquee-item">Free Shipping</span>
+      <span class="marquee-item">Metal Alloy</span>
+      <span class="marquee-item">Limited Drops</span>
+      <span class="marquee-item">Chrome Finish</span>
+      <span class="marquee-item">Precision Fit</span>
+      <span class="marquee-item">Mirror Polish</span>
+      <span class="marquee-item">AirPods Pro Compatible</span>
+      <span class="marquee-item">Shiny Silver Shell</span>
+      <span class="marquee-item">Free Shipping</span>
+      <span class="marquee-item">Metal Alloy</span>
+      <span class="marquee-item">Limited Drops</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left reveal">
+      <p class="hero-eyebrow">Premium AirPods Cases · Chrome Edition</p>
+      <h1 class="hero-title">Liquid<br><span class="silver-word">Chrome</span></h1>
+      <p class="hero-sub">Worn Daily.</p>
+      <p class="hero-desc">
+        AirPods cases that mirror the world around you — constructed with metal alloy,
+        polished to perfection. Suitable for AirPods Pro 3 &amp; AirPods 4.
+      </p>
+      <div class="hero-btns">
+        <a href="#" class="btn-primary">Shop Cases</a>
+        <a href="#" class="btn-ghost">View Materials</a>
+      </div>
+      <div class="hero-line"></div>
+    </div>
+    <div class="hero-right">
+      <img
+        class="hero-product"
+        src="CrystalDripAirPodsCover-silver-xtendedidentity-02.webp"
+        alt="Liquisity Chrome AirPods Case"
+      />
+      <div class="hero-corner-label">
+        <span>AirPods Pro 3</span>
+        <span>AirPods 4</span>
+        <span>Metal Alloy</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="feature reveal">
+      <span class="feature-num">01</span>
+      <p class="feature-title">Metal Alloy</p>
+      <p class="feature-desc">Real metal — not paint, not film. The same technique used in automotive trim. Built to last.</p>
+    </div>
+    <div class="feature reveal" style="transition-delay:0.12s">
+      <span class="feature-num">02</span>
+      <p class="feature-title">Precision Fit</p>
+      <p class="feature-desc">Engineered to 0.1mm tolerances for AirPods Pro 3 and AirPods 4. Lid closes with a magnetic snap. Wireless charging unobstructed.</p>
+    </div>
+    <div class="feature reveal" style="transition-delay:0.24s">
+      <span class="feature-num">03</span>
+      <p class="feature-title">Sculpted Form</p>
+      <p class="feature-desc">Organic, flowing geometry inspired by liquid metal. Each surface catches light differently. No two angles look the same.</p>
+    </div>
+  </section>
+
+  <!-- DETAIL -->
+  <section class="detail">
+    <div class="detail-img-wrap reveal">
+      <div class="detail-badge">Limited Drop</div>
+      <img
+        src="CrystalDripAirPodsCover-silver-xtendedidentity-02.webp"
+        alt="Liquisity Case detail"
+      />
+    </div>
+    <div class="detail-content reveal" style="transition-delay:0.15s">
+      <h2>Own the<br><em>reflection.</em></h2>
+      <p>
+        Each case is individually polished through a multi-stage process — the same
+        used in precision automotive and aerospace parts. The result is a mirror surface
+        that ages beautifully and holds its shine indefinitely.
+      </p>
+      <ul class="spec-list">
+        <li>Metal alloy shell — chrome plated</li>
+        <li>Fits AirPods Pro 3 &amp; AirPods 4</li>
+        <li>0.1mm precision tolerance</li>
+        <li>Magnetic lid closure</li>
+        <li>Wireless charging compatible</li>
+        <li>Free worldwide shipping</li>
+      </ul>
+      <a href="#" class="btn-primary">Shop Cases</a>
+    </div>
+  </section>
+
+  <!-- EMAIL -->
+  <section class="email-section">
+    <span class="email-eyebrow">Limited Drops</span>
+    <h2 class="email-title">Own the<br><span class="thin">Reflection.</span></h2>
+    <p class="email-sub">Join the list to get early access.</p>
+    <div class="email-form">
+      <input type="email" placeholder="your@email.com" />
+      <button type="submit">Notify Me</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Liquisity</div>
+    <p class="footer-copy">© 2026 Liquisity. All rights reserved.</p>
+    <ul class="footer-links">
+      <li><a href="#">Instagram</a></li>
+      <li><a href="#">TikTok</a></li>
+      <li><a href="#">Support</a></li>
+      <li><a href="#">Returns</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => io.observe(el));
+  </script>
+
+</body>
+</html>

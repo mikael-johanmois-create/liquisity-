@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 238 72" role="img" aria-labelledby="title">
+  <title id="title">Liquisity logo</title>
+  <defs>
+    <linearGradient id="chrome" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset=".18" stop-color="#8f9895"/>
+      <stop offset=".34" stop-color="#f7ffff"/>
+      <stop offset=".52" stop-color="#3a403f"/>
+      <stop offset=".74" stop-color="#d9e1df"/>
+      <stop offset="1" stop-color="#767f7c"/>
+    </linearGradient>
+    <linearGradient id="aquaLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6f7875" stop-opacity=".2"/>
+      <stop offset=".55" stop-color="#b7f4ec"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity=".24"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity=".55"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <path d="M15 52 35 12h14L39 36h22L53 52H15Z" fill="url(#chrome)"/>
+    <path d="M43 13c16 5 25 15 25 29 0 7-2 12-5 17-1-13-8-21-24-23l4-23Z" fill="#b7f4ec" opacity=".28"/>
+    <path d="M15 52 35 12h14L39 36h22L53 52H15Z" fill="none" stroke="#f8ffff" stroke-opacity=".55" stroke-width="1.5" stroke-linejoin="round"/>
+    <text x="82" y="42" fill="url(#chrome)" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="900" letter-spacing="1.8">LIQUISITY</text>
+    <rect x="83" y="50" width="112" height="3" rx="1.5" fill="url(#aquaLine)"/>
+  </g>
+</svg>
