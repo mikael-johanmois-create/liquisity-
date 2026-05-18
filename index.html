@@ -6,35 +6,40 @@
   <title>Liquisity — Premium AirPods Cases</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500&family=Bebas+Neue&display=swap" rel="stylesheet" />
 
   <style>
-    /* ── TOKENS ─────────────────────────────────────────────── */
+    /* ═══════════════════════════════════════════════════════════
+       TOKENS & RESET
+    ═══════════════════════════════════════════════════════════ */
     :root {
-      --white:   #ffffff;
-      --off:     #f5f4f2;
-      --silver:  #c8c8c8;
-      --chrome:  #a8b0b8;
-      --ink:     #111111;
-      --mid:     #555555;
-      --light:   #999999;
-      --accent:  #8a9ba8;
-      --border:  rgba(0,0,0,0.08);
-      --shadow:  0 2px 40px rgba(0,0,0,0.07);
-      --chrome-grad: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 25%, #a0a8b0 45%, #d4d4d4 60%, #888f96 80%, #c8c8c8 100%);
+      --white:        #ffffff;
+      --off:          #f5f4f2;
+      --off2:         #eeede9;
+      --ink:          #0a0a0a;
+      --ink2:         #1c1c1e;
+      --mid:          #4a4a4c;
+      --light:        #8e8e93;
+      --lighter:      #c7c7cc;
+      --border:       rgba(0,0,0,0.07);
+      --border2:      rgba(0,0,0,0.12);
+      --chrome1:      #b8bfc8;
+      --chrome2:      #e2e4e6;
+      --chrome3:      #9098a0;
+      --chrome4:      #d0d2d4;
+      --chrome5:      #7a8088;
+      --chrome-grad:  linear-gradient(115deg,#b0b8c0 0%,#e4e6e8 22%,#9aa4ae 42%,#d8dadc 58%,#8890a0 78%,#c8ccce 100%);
+      --chrome-grad2: linear-gradient(135deg,#c8c8c8 0%,#f0f0f0 30%,#a0a8b0 55%,#dcdcdc 75%,#909090 100%);
+      --shadow-sm:    0 1px 12px rgba(0,0,0,0.06);
+      --shadow-md:    0 4px 32px rgba(0,0,0,0.09);
+      --shadow-lg:    0 12px 60px rgba(0,0,0,0.13);
+      --radius:       12px;
+      --transition:   0.38s cubic-bezier(0.4,0,0.2,1);
     }
 
-    /* ── CHROME TEXT ─────────────────────────────────────────── */
-    .chrome-text {
-      background: var(--chrome-grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    /* ── RESET ──────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
     body {
       background: var(--white);
       color: var(--ink);
@@ -42,632 +47,1827 @@
       font-weight: 300;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      cursor: none;
     }
-    a { text-decoration: none; color: inherit; }
-    img { display: block; max-width: 100%; }
 
-    /* ── MARQUEE ─────────────────────────────────────────────── */
+    a { text-decoration: none; color: inherit; cursor: none; }
+    button { cursor: none; }
+    img { display: block; max-width: 100%; }
+    ul { list-style: none; }
+
+    /* ═══════════════════════════════════════════════════════════
+       CUSTOM CURSOR
+    ═══════════════════════════════════════════════════════════ */
+    #cursor-dot {
+      width: 8px; height: 8px;
+      background: var(--ink);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background 0.2s;
+    }
+    #cursor-ring {
+      width: 36px; height: 36px;
+      border: 1.5px solid var(--ink);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: width 0.35s cubic-bezier(0.4,0,0.2,1),
+                  height 0.35s cubic-bezier(0.4,0,0.2,1),
+                  border-color 0.2s, opacity 0.2s;
+    }
+    body.hovering #cursor-dot { width: 12px; height: 12px; background: var(--chrome3); }
+    body.hovering #cursor-ring { width: 56px; height: 56px; border-color: var(--chrome3); opacity: 0.6; }
+
+    /* ═══════════════════════════════════════════════════════════
+       CHROME TEXT UTILITY
+    ═══════════════════════════════════════════════════════════ */
+    .chrome-text {
+      background: var(--chrome-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .chrome-text2 {
+      background: var(--chrome-grad2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       PAGE SYSTEM
+    ═══════════════════════════════════════════════════════════ */
+    .page { display: none; }
+    .page.active { display: block; animation: pageFadeIn 0.48s cubic-bezier(0.4,0,0.2,1) forwards; }
+    @keyframes pageFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       NAVBAR
+    ═══════════════════════════════════════════════════════════ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      height: 52px;
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      transition: background var(--transition);
+    }
+    nav.scrolled {
+      background: rgba(255,255,255,0.96);
+      box-shadow: 0 1px 0 var(--border2);
+    }
+    .nav-logo-wrap { display: flex; align-items: center; }
+    .nav-logo-wrap svg { height: 28px; width: auto; }
+    .nav-links { display: flex; gap: 0; align-items: center; }
+    .nav-links li a, .nav-links li button {
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      color: var(--mid);
+      padding: 6px 16px;
+      background: none;
+      border: none;
+      transition: color 0.2s;
+      position: relative;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .nav-links li a:hover,
+    .nav-links li button:hover,
+    .nav-links li a.active { color: var(--ink); }
+    .nav-links li a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 16px; right: 16px;
+      height: 1px;
+      background: var(--ink);
+    }
+    .nav-right { display: flex; align-items: center; gap: 14px; }
+    .nav-bag {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border2);
+      border-radius: 50%;
+      color: var(--ink);
+      font-size: 14px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .nav-bag:hover { border-color: var(--ink); background: var(--off); }
+    .nav-shop-btn {
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      font-weight: 400;
+      background: var(--ink);
+      color: var(--white);
+      border: none;
+      padding: 8px 20px;
+      border-radius: 20px;
+      transition: background 0.2s, transform 0.15s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .nav-shop-btn:hover { background: #1c1c1e; transform: scale(1.03); }
+
+    /* ═══════════════════════════════════════════════════════════
+       MARQUEE
+    ═══════════════════════════════════════════════════════════ */
     .marquee-wrap {
       overflow: hidden;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
       background: var(--off);
-      padding: 10px 0;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      margin-top: 52px;
     }
     .marquee-track {
       display: flex;
-      gap: 0;
-      animation: marquee 22s linear infinite;
       width: max-content;
+      animation: marquee 28s linear infinite;
     }
     .marquee-item {
       white-space: nowrap;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 10px;
-      letter-spacing: 0.22em;
+      font-size: 9.5px;
+      letter-spacing: 0.24em;
       text-transform: uppercase;
-      color: var(--mid);
-      padding: 0 32px;
-    }
-    .marquee-item::after {
-      content: '·';
-      margin-left: 32px;
-      color: var(--silver);
+      color: var(--light);
+      padding: 0 28px;
     }
     @keyframes marquee {
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
     }
 
-    /* ── NAV ─────────────────────────────────────────────────── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 48px;
-      height: 64px;
+    /* ═══════════════════════════════════════════════════════════
+       REVEAL ANIMATIONS
+    ═══════════════════════════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s cubic-bezier(0.4,0,0.2,1),
+                  transform 0.75s cubic-bezier(0.4,0,0.2,1);
     }
-    .nav-logo {
-      display: flex;
-      align-items: center;
-    }
-    .nav-links {
-      display: flex;
-      gap: 36px;
-      list-style: none;
-    }
-    .nav-links a {
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--mid);
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--ink); }
-    .nav-cta {
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      border: 1px solid var(--ink);
-      padding: 9px 22px;
-      color: var(--ink);
-      transition: background 0.2s, color 0.2s;
-    }
-    .nav-cta:hover { background: var(--ink); color: var(--white); }
+    .reveal.up { transform: translateY(0); opacity: 1; }
+    .reveal-left  { opacity: 0; transform: translateX(-32px); transition: opacity 0.75s ease, transform 0.75s ease; }
+    .reveal-right { opacity: 0; transform: translateX(32px);  transition: opacity 0.75s ease, transform 0.75s ease; }
+    .reveal-left.up, .reveal-right.up { opacity: 1; transform: translateX(0); }
 
-    /* ── HERO ────────────────────────────────────────────────── */
-    .hero {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: calc(100vh - 64px);
-      overflow: hidden;
-    }
-    .hero-left {
+    /* ═══════════════════════════════════════════════════════════
+       SHARED COMPONENTS
+    ═══════════════════════════════════════════════════════════ */
+    .eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--light);
+      margin-bottom: 24px;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 80px 64px 80px 64px;
-      position: relative;
+      align-items: center;
+      gap: 12px;
     }
-    .hero-eyebrow {
+    .eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 28px; height: 1px;
+      background: var(--lighter);
+      flex-shrink: 0;
+    }
+    .section-label {
       font-size: 10px;
       letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--light);
-      margin-bottom: 28px;
+      margin-bottom: 16px;
     }
-    .hero-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(72px, 9vw, 130px);
-      line-height: 0.92;
-      letter-spacing: 0.01em;
-      color: var(--ink);
-      margin-bottom: 12px;
-    }
-    .hero-title .silver-word {
-      color: var(--chrome);
-    }
-    .hero-sub {
+    .section-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(20px, 2.5vw, 32px);
-      font-style: italic;
+      font-size: clamp(32px, 4vw, 54px);
       font-weight: 300;
-      color: var(--mid);
-      margin-bottom: 40px;
+      line-height: 1.15;
+      color: var(--ink);
     }
-    .hero-desc {
-      font-size: 14px;
-      line-height: 1.75;
-      color: var(--mid);
-      max-width: 360px;
-      margin-bottom: 48px;
-    }
-    .hero-btns {
+    .section-title em { font-style: italic; }
+    .section-header {
       display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 72px;
     }
-    .btn-primary {
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
+    .section-link {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: var(--mid);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 2px;
+      border-bottom: 1px solid var(--border2);
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .section-link:hover { color: var(--ink); border-color: var(--ink); }
+    .section-link svg { width: 14px; transition: transform 0.2s; }
+    .section-link:hover svg { transform: translateX(4px); }
+
+    .btn-pill-dark {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
       background: var(--ink);
       color: var(--white);
       padding: 14px 32px;
-      border: 1px solid var(--ink);
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
+      border-radius: 30px;
+      border: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.16);
+      font-family: 'DM Sans', sans-serif;
     }
-    .btn-primary:hover { background: #333; }
-    .btn-ghost {
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
+    .btn-pill-dark:hover { background: #1c1c1e; transform: scale(1.04); }
+    .btn-pill-ghost {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
       background: transparent;
       color: var(--ink);
-      padding: 14px 32px;
-      border: 1px solid var(--border);
-      cursor: pointer;
-      transition: border-color 0.2s;
+      padding: 13px 32px;
+      border-radius: 30px;
+      border: 1.5px solid var(--border2);
+      transition: border-color 0.2s, transform 0.15s;
+      font-family: 'DM Sans', sans-serif;
     }
-    .btn-ghost:hover { border-color: var(--ink); }
-
-    /* decorative line */
-    .hero-line {
-      position: absolute;
-      top: 0; bottom: 0; right: 0;
-      width: 1px;
-      background: linear-gradient(to bottom, transparent, var(--border) 30%, var(--border) 70%, transparent);
+    .btn-pill-ghost:hover { border-color: var(--ink); transform: scale(1.04); }
+    .btn-pill-light {
+      font-size: 13px;
+      font-weight: 400;
+      background: var(--white);
+      color: var(--ink);
+      padding: 13px 30px;
+      border-radius: 30px;
+      border: none;
+      transition: background 0.2s, transform 0.15s;
+      font-family: 'DM Sans', sans-serif;
     }
+    .btn-pill-light:hover { background: #e8e8e8; transform: scale(1.04); }
 
-    /* hero right — product image */
-    .hero-right {
-      background: var(--off);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    /* ═══════════════════════════════════════════════════════════
+       PAGE: HOME — HERO
+    ═══════════════════════════════════════════════════════════ */
+    .home-hero {
+      min-height: calc(100vh - 88px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       position: relative;
       overflow: hidden;
     }
-    .hero-right::before {
+    .home-hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 100px 72px 80px 64px;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(80px, 10vw, 148px);
+      line-height: 0.88;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+    .hero-h1 .line-chrome { display: block; }
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(18px, 2.2vw, 28px);
+      font-style: italic;
+      font-weight: 300;
+      margin-bottom: 36px;
+    }
+    .hero-desc {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--mid);
+      max-width: 380px;
+      margin-bottom: 52px;
+      font-weight: 300;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .hero-divider {
+      position: absolute;
+      top: 0; bottom: 0; right: 0; width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--border2) 20%, var(--border2) 80%, transparent);
+    }
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px; left: 64px;
+      display: flex; align-items: center; gap: 10px;
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--lighter);
+    }
+    .scroll-hint-line {
+      width: 40px; height: 1px;
+      background: var(--lighter);
+      position: relative;
+      overflow: hidden;
+    }
+    .scroll-hint-line::after {
       content: '';
       position: absolute;
-      width: 420px; height: 420px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(168,176,184,0.18) 0%, transparent 70%);
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
+      top: 0; left: -40px;
+      width: 40px; height: 1px;
+      background: var(--light);
+      animation: scanLine 2.2s ease-in-out infinite;
     }
-    .hero-product {
-      width: 72%;
-      max-width: 480px;
-      filter: drop-shadow(0 24px 64px rgba(0,0,0,0.13));
-      animation: float 5s ease-in-out infinite;
+    @keyframes scanLine {
+      0%   { left: -40px; }
+      100% { left: 40px; }
+    }
+    .home-hero-right {
+      position: relative;
+      background: linear-gradient(145deg, #f0eeeb 0%, #e8e6e2 60%, #dddbd7 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .home-hero-right::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,204,208,0.25) 0%, transparent 68%);
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      pointer-events: none;
+    }
+    .hero-float-img {
+      width: 68%;
+      max-width: 460px;
+      filter: drop-shadow(0 32px 80px rgba(0,0,0,0.16));
+      animation: heroFloat 6s ease-in-out infinite;
       position: relative;
       z-index: 1;
     }
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(-2deg); }
-      50%       { transform: translateY(-18px) rotate(1deg); }
+    @keyframes heroFloat {
+      0%,100% { transform: translateY(0)    rotate(-1.5deg) scale(1); }
+      33%      { transform: translateY(-14px) rotate(0.8deg)  scale(1.01); }
+      66%      { transform: translateY(-8px)  rotate(-0.5deg) scale(1.005); }
     }
-
-    /* corner label */
-    .hero-corner-label {
+    .hero-right-label {
       position: absolute;
-      bottom: 36px;
-      right: 36px;
+      bottom: 36px; right: 36px;
       text-align: right;
     }
-    .hero-corner-label span {
+    .hero-right-label span {
       display: block;
-      font-size: 10px;
-      letter-spacing: 0.2em;
+      font-size: 9.5px;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--light);
-      line-height: 1.9;
+      line-height: 2;
     }
 
-    /* ── FEATURES STRIP ─────────────────────────────────────── */
-    .features {
+    /* ─── HOME: FEATURES GRID ─────────────────────────── */
+    .features-section {
+      padding: 120px 64px;
+      background: var(--white);
+    }
+    .features-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+      gap: 2px;
+      background: var(--border);
     }
-    .feature {
-      padding: 56px 48px;
-      border-right: 1px solid var(--border);
+    .feat-card {
+      background: var(--white);
+      padding: 52px 44px;
       position: relative;
       overflow: hidden;
       transition: background 0.3s;
     }
-    .feature:last-child { border-right: none; }
-    .feature:hover { background: var(--off); }
-    .feature-num {
+    .feat-card:hover { background: var(--off); }
+    .feat-card::before {
+      content: attr(data-num);
       font-family: 'Cormorant Garamond', serif;
-      font-size: 48px;
+      font-size: 80px;
       font-weight: 300;
-      color: rgba(0,0,0,0.06);
+      color: rgba(0,0,0,0.04);
       position: absolute;
-      top: 24px; right: 28px;
+      top: 16px; right: 20px;
       line-height: 1;
+      pointer-events: none;
     }
-    .feature-title {
+    .feat-icon { width: 40px; height: 40px; margin-bottom: 28px; opacity: 0.7; }
+    .feat-name {
       font-size: 11px;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--ink);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
+      font-weight: 400;
     }
-    .feature-desc {
-      font-size: 14px;
-      line-height: 1.7;
-      color: var(--mid);
-    }
+    .feat-desc { font-size: 14px; line-height: 1.75; color: var(--mid); }
 
-    /* ── PRODUCT DETAIL ─────────────────────────────────────── */
-    .detail {
+    /* ─── HOME: SPOTLIGHT ─────────────────────────────── */
+    .spotlight {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      align-items: center;
-      padding: 120px 64px;
-      gap: 80px;
-    }
-    .detail-img-wrap {
+      min-height: 680px;
       background: var(--off);
-      padding: 60px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .spotlight-img-side {
+      background: linear-gradient(160deg, #eceae6 0%, #e0deda 100%);
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
+      padding: 60px;
     }
-    .detail-img-wrap img {
-      width: 85%;
-      filter: drop-shadow(0 20px 50px rgba(0,0,0,0.10));
+    .spotlight-img-side img {
+      width: 80%;
+      max-width: 420px;
+      filter: drop-shadow(0 24px 72px rgba(0,0,0,0.14));
+      transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
     }
-    .detail-badge {
+    .spotlight-img-side:hover img { transform: scale(1.04) rotate(1deg); }
+    .badge-limited {
       position: absolute;
-      top: 24px; left: 24px;
+      top: 36px; left: 36px;
       background: var(--ink);
       color: var(--white);
       font-size: 9px;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      padding: 6px 14px;
+      padding: 7px 16px;
+      border-radius: 20px;
     }
-    .detail-content h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(36px, 4vw, 58px);
-      font-weight: 300;
-      line-height: 1.15;
-      margin-bottom: 28px;
-    }
-    .detail-content h2 em {
-      font-style: italic;
-      color: var(--chrome);
-    }
-    .detail-content p {
-      font-size: 15px;
-      line-height: 1.8;
-      color: var(--mid);
-      margin-bottom: 40px;
-    }
-    .spec-list {
-      list-style: none;
-      margin-bottom: 48px;
-    }
-    .spec-list li {
-      font-size: 13px;
-      letter-spacing: 0.04em;
-      color: var(--mid);
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .spec-list li::before {
-      content: '';
-      width: 20px; height: 1px;
-      background: var(--chrome);
-      flex-shrink: 0;
-    }
-
-    /* ── EMAIL SECTION ──────────────────────────────────────── */
-    .email-section {
-      background: var(--off);
-      border-top: 1px solid var(--border);
-      padding: 120px 64px;
+    .spotlight-content {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
+      justify-content: center;
+      padding: 80px 72px 80px 64px;
     }
-    .email-eyebrow {
-      font-size: 10px;
-      letter-spacing: 0.28em;
+    .spotlight-content h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(38px, 4.5vw, 64px);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 28px;
+      color: var(--ink);
+    }
+    .spotlight-content h2 em { font-style: italic; }
+    .spotlight-content p {
+      font-size: 15px;
+      line-height: 1.82;
+      color: var(--mid);
+      margin-bottom: 48px;
+      max-width: 400px;
+    }
+    .spec-rows { margin-bottom: 48px; }
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .spec-row:first-child { border-top: 1px solid var(--border); }
+    .spec-row-label { color: var(--light); letter-spacing: 0.06em; }
+    .spec-row-val { color: var(--ink); font-weight: 400; }
+
+    /* ─── HOME: DARK STRIP ────────────────────────────── */
+    .materials-strip {
+      padding: 100px 64px;
+      background: var(--ink);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    .materials-strip::before {
+      content: 'CHROME';
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 200px;
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      color: rgba(255,255,255,0.025);
+      letter-spacing: 0.08em;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .materials-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .materials-left h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4.5vw, 62px);
+      font-weight: 300;
+      line-height: 1.12;
+      margin-bottom: 28px;
+    }
+    .materials-left h2 em { font-style: italic; }
+    .materials-left p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 40px;
+    }
+    .materials-right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .mat-stat {
+      padding: 28px 24px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+    }
+    .mat-stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 44px;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .mat-stat-label {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* ─── HOME: TESTIMONIALS ──────────────────────────── */
+    .testimonials-section { padding: 120px 64px; background: var(--white); }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 64px;
+    }
+    .testimonial-card {
+      padding: 40px 36px;
+      background: var(--off);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .testimonial-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+    .stars { display: flex; gap: 3px; margin-bottom: 20px; }
+    .star { width: 12px; height: 12px; fill: var(--ink); }
+    .testimonial-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--ink);
+      margin-bottom: 24px;
+    }
+    .testimonial-author { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--light); }
+
+    /* ─── HOME: CTA ───────────────────────────────────── */
+    .cta-section {
+      padding: 140px 64px;
+      background: var(--off);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(168,176,184,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .cta-eyebrow {
+      display: inline-block;
+      font-size: 9.5px;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
       color: var(--light);
-      margin-bottom: 24px;
-      border: 1px solid var(--border);
+      border: 1px solid var(--border2);
       padding: 6px 18px;
+      border-radius: 20px;
+      margin-bottom: 32px;
     }
-    .email-title {
+    .cta-title {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(52px, 8vw, 110px);
+      font-size: clamp(56px, 9vw, 120px);
       line-height: 0.9;
       color: var(--ink);
-      margin-bottom: 12px;
-      letter-spacing: 0.01em;
+      margin-bottom: 16px;
     }
-    .email-title .thin {
-      color: var(--chrome);
-    }
-    .email-sub {
+    .cta-subtitle {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: 20px;
+      font-size: 22px;
       color: var(--mid);
-      margin-bottom: 52px;
+      margin-bottom: 56px;
     }
+    .email-form-wrap { display: flex; justify-content: center; }
     .email-form {
       display: flex;
-      gap: 0;
-      max-width: 480px;
+      max-width: 500px;
       width: 100%;
-      border: 1px solid var(--ink);
+      border: 1.5px solid var(--ink);
+      border-radius: 30px;
+      overflow: hidden;
+      background: var(--white);
     }
     .email-form input {
       flex: 1;
-      padding: 16px 22px;
-      border: none;
-      outline: none;
+      padding: 15px 24px;
+      border: none; outline: none;
       font-family: 'DM Sans', sans-serif;
-      font-size: 13px;
-      background: var(--white);
+      font-size: 14px;
+      background: transparent;
       color: var(--ink);
     }
-    .email-form input::placeholder { color: var(--light); letter-spacing: 0.04em; }
+    .email-form input::placeholder { color: var(--lighter); }
     .email-form button {
       background: var(--ink);
       color: var(--white);
       border: none;
-      padding: 16px 28px;
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-      transition: background 0.2s;
-    }
-    .email-form button:hover { background: #333; }
-
-    /* ── FOOTER ──────────────────────────────────────────────── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 28px 48px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .footer-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 18px;
-      font-weight: 400;
-    }
-    .footer-copy {
-      font-size: 11px;
-      color: var(--light);
-      letter-spacing: 0.06em;
-    }
-    .footer-links {
-      display: flex;
-      gap: 28px;
-      list-style: none;
-    }
-    .footer-links a {
+      padding: 15px 28px;
       font-size: 11px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      border-radius: 0 30px 30px 0;
+      transition: background 0.2s;
+    }
+    .email-form button:hover { background: #222; }
+
+    /* ═══════════════════════════════════════════════════════════
+       PAGE: SHOP
+    ═══════════════════════════════════════════════════════════ */
+    .shop-hero { padding: 100px 64px 60px; background: var(--white); }
+    .shop-hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(60px, 8vw, 110px);
+      line-height: 0.9;
+      margin-bottom: 20px;
+    }
+    .shop-hero p { font-size: 16px; color: var(--mid); max-width: 480px; line-height: 1.75; }
+    .shop-filters { padding: 0 64px 48px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .filter-pill {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 8px 20px;
+      border-radius: 20px;
+      border: 1.5px solid var(--border2);
+      background: transparent;
+      color: var(--mid);
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .filter-pill:hover, .filter-pill.active { background: var(--ink); color: var(--white); border-color: var(--ink); }
+    .product-grid {
+      padding: 0 64px 120px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+    }
+    .product-card {
+      background: var(--white);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .product-card:hover { background: var(--off); }
+    .product-card-img {
+      aspect-ratio: 1;
+      background: linear-gradient(145deg, #f0eeeb, #e8e6e0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .product-card-img img {
+      width: 72%;
+      filter: drop-shadow(0 12px 32px rgba(0,0,0,0.12));
+      transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
+    }
+    .product-card:hover .product-card-img img { transform: scale(1.07) rotate(1.5deg); }
+    .product-card-badge {
+      position: absolute;
+      top: 16px; left: 16px;
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 12px;
+    }
+    .badge-new  { background: var(--ink); color: var(--white); }
+    .badge-sold { background: var(--lighter); color: var(--mid); }
+    .badge-drop { background: #1c1c1e; color: #e8e8e0; }
+    .product-card-info { padding: 28px 32px 36px; }
+    .product-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .product-variant { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--light); margin-bottom: 20px; }
+    .product-footer { display: flex; justify-content: space-between; align-items: center; }
+    .product-price { font-size: 18px; font-weight: 400; color: var(--ink); }
+    .btn-add {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--ink);
+      color: var(--white);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-family: 'DM Sans', sans-serif;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-add:hover { background: #333; transform: scale(1.05); }
+    .btn-add-ghost {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: transparent;
+      color: var(--lighter);
+      border: 1.5px solid var(--border2);
+      padding: 9px 18px;
+      border-radius: 20px;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       PAGE: MATERIALS
+    ═══════════════════════════════════════════════════════════ */
+    .mat-hero { padding: 100px 64px 80px; background: var(--off); border-bottom: 1px solid var(--border); }
+    .mat-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(60px, 8vw, 108px); line-height: 0.9; margin-bottom: 24px; }
+    .mat-hero p { font-size: 17px; line-height: 1.8; color: var(--mid); max-width: 520px; }
+    .process-section { padding: 120px 64px; background: var(--white); }
+    .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px; margin-top: 72px; }
+    .process-step { position: relative; }
+    .step-line {
+      width: 100%; height: 1px;
+      background: var(--border2);
+      position: relative;
+      margin-bottom: 32px;
+    }
+    .step-line::before {
+      content: '';
+      position: absolute;
+      left: 0; top: -3px;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--ink);
+    }
+    .step-num { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.2em; color: var(--light); margin-bottom: 12px; }
+    .step-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--ink); margin-bottom: 14px; }
+    .step-desc { font-size: 13.5px; line-height: 1.75; color: var(--mid); }
+    .comparison-section { padding: 0 64px 120px; }
+    .comparison-table { width: 100%; border-collapse: collapse; margin-top: 64px; }
+    .comparison-table th {
+      padding: 18px 24px;
+      text-align: left;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
       color: var(--light);
+      border-bottom: 2px solid var(--border2);
+      font-weight: 400;
+    }
+    .comparison-table td { padding: 20px 24px; font-size: 14px; color: var(--mid); border-bottom: 1px solid var(--border); }
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table tr:hover td { background: var(--off); }
+    .td-feature { color: var(--ink); font-weight: 400; }
+    .check { color: var(--ink); font-size: 16px; }
+    .cross { color: var(--lighter); }
+
+    /* ═══════════════════════════════════════════════════════════
+       PAGE: CARE
+    ═══════════════════════════════════════════════════════════ */
+    .care-hero {
+      padding: 100px 64px 72px;
+      background: var(--white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .care-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px, 7.5vw, 100px); line-height: 0.9; margin-bottom: 24px; }
+    .care-hero p { font-size: 16px; line-height: 1.8; color: var(--mid); }
+    .care-hero-right { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .care-stat-card { padding: 28px 24px; background: var(--off); border: 1px solid var(--border); border-radius: var(--radius); }
+    .care-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 40px; line-height: 1; margin-bottom: 4px; }
+    .care-stat-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--light); }
+    .care-guide { padding: 100px 64px; }
+    .care-steps { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-top: 64px; }
+    .care-step {
+      background: var(--white);
+      padding: 52px;
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+      transition: background 0.3s;
+    }
+    .care-step:hover { background: var(--off); }
+    .care-step-icon {
+      width: 44px; height: 44px;
+      flex-shrink: 0;
+      background: var(--off2);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+    .care-step-text h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; margin-bottom: 10px; color: var(--ink); }
+    .care-step-text p { font-size: 14px; line-height: 1.75; color: var(--mid); }
+    .faq-section { padding: 0 64px 120px; }
+    .faq-list { margin-top: 64px; }
+    .faq-item { border-bottom: 1px solid var(--border); overflow: hidden; }
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0;
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--ink);
+      background: none; border: none; width: 100%;
+      text-align: left;
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 0.02em;
       transition: color 0.2s;
     }
-    .footer-links a:hover { color: var(--ink); }
+    .faq-question:hover { color: var(--mid); }
+    .faq-icon {
+      width: 24px; height: 24px;
+      border: 1px solid var(--border2);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      transition: transform 0.3s, background 0.2s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--ink); color: var(--white); border-color: var(--ink); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1); }
+    .faq-answer p { padding: 0 0 24px; font-size: 14px; line-height: 1.8; color: var(--mid); max-width: 640px; }
+    .faq-item.open .faq-answer { max-height: 200px; }
 
-    /* ── FADE-IN ON SCROLL ───────────────────────────────────── */
-    .reveal {
+    /* ═══════════════════════════════════════════════════════════
+       PAGE: ABOUT
+    ═══════════════════════════════════════════════════════════ */
+    .about-hero {
+      min-height: 70vh;
+      background: var(--ink);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 100px 64px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(168,176,184,0.08) 0%, transparent 60%);
+    }
+    .about-hero-content { position: relative; z-index: 1; max-width: 680px; }
+    .about-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(64px, 9vw, 130px); line-height: 0.88; margin-bottom: 32px; }
+    .about-hero p { font-size: 18px; line-height: 1.75; color: rgba(255,255,255,0.6); }
+    .about-story {
+      padding: 120px 64px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+      background: var(--white);
+    }
+    .about-story-left h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: 32px;
+    }
+    .about-story-left h2 em { font-style: italic; }
+    .about-story-left p, .about-story-right p { font-size: 15px; line-height: 1.85; color: var(--mid); margin-bottom: 24px; }
+    .about-story-right { padding-top: 60px; }
+    .about-values { padding: 0 64px 120px; }
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); margin-top: 64px; }
+    .value-card { background: var(--white); padding: 52px 44px; transition: background 0.3s; }
+    .value-card:hover { background: var(--off); }
+    .value-num { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.2em; color: var(--lighter); margin-bottom: 24px; }
+    .value-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 400; color: var(--ink); margin-bottom: 16px; }
+    .value-title em { font-style: italic; }
+    .value-desc { font-size: 14px; line-height: 1.75; color: var(--mid); }
+
+    /* ═══════════════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════════════ */
+    footer {
+      background: var(--ink2);
+      color: var(--white);
+      padding: 80px 64px 40px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 64px;
+      padding-bottom: 64px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-brand p { font-size: 13.5px; line-height: 1.8; color: rgba(255,255,255,0.4); margin-top: 20px; max-width: 280px; }
+    .footer-col h4 { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 22px; font-weight: 400; }
+    .footer-col ul { display: flex; flex-direction: column; gap: 12px; }
+    .footer-col a { font-size: 13.5px; color: rgba(255,255,255,0.55); transition: color 0.2s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; }
+    .footer-copy { font-size: 11.5px; color: rgba(255,255,255,0.25); letter-spacing: 0.04em; }
+    .footer-socials { display: flex; gap: 16px; }
+    .social-pill {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 7px 16px;
+      border-radius: 20px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .social-pill:hover { color: var(--white); border-color: rgba(255,255,255,0.4); }
+
+    /* ═══════════════════════════════════════════════════════════
+       TOAST
+    ═══════════════════════════════════════════════════════════ */
+    #toast {
+      position: fixed;
+      bottom: 36px; left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--ink);
+      color: var(--white);
+      padding: 14px 28px;
+      border-radius: 30px;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      z-index: 1000;
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.4s;
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      pointer-events: none;
+      white-space: nowrap;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.22);
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-    /* ── RESPONSIVE ──────────────────────────────────────────── */
+    /* ═══════════════════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+    }
     @media (max-width: 900px) {
-      nav { padding: 0 24px; }
+      nav { padding: 0 20px; }
       .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; }
-      .hero-left { padding: 60px 28px; }
-      .hero-right { min-height: 50vw; }
-      .features { grid-template-columns: 1fr; }
-      .feature { border-right: none; border-bottom: 1px solid var(--border); }
-      .detail { grid-template-columns: 1fr; padding: 60px 28px; }
-      .email-section { padding: 80px 28px; }
-      footer { flex-direction: column; gap: 16px; text-align: center; }
+      .home-hero { grid-template-columns: 1fr; }
+      .home-hero-left { padding: 80px 28px 60px; }
+      .home-hero-right { min-height: 55vw; }
+      .scroll-hint { left: 28px; }
+      .features-section, .testimonials-section, .cta-section { padding: 80px 28px; }
+      .features-grid, .testimonials-grid { grid-template-columns: 1fr; }
+      .spotlight { grid-template-columns: 1fr; }
+      .spotlight-content { padding: 60px 28px; }
+      .materials-inner { grid-template-columns: 1fr; gap: 48px; }
+      .materials-strip { padding: 80px 28px; }
+      .materials-right { grid-template-columns: repeat(4,1fr); }
+      .shop-hero, .shop-filters { padding-left: 20px; padding-right: 20px; }
+      .product-grid { padding: 0 20px 80px; grid-template-columns: 1fr 1fr; }
+      .mat-hero, .process-section, .comparison-section { padding-left: 20px; padding-right: 20px; }
+      .care-hero { grid-template-columns: 1fr; gap: 40px; padding: 80px 20px; }
+      .care-guide, .faq-section { padding-left: 20px; padding-right: 20px; }
+      .care-steps { grid-template-columns: 1fr; }
+      .about-story { grid-template-columns: 1fr; gap: 40px; padding: 80px 20px; }
+      .about-hero { padding: 80px 20px 60px; }
+      .values-grid { grid-template-columns: 1fr; }
+      .about-values { padding: 0 20px 80px; }
+      footer { padding: 60px 20px 32px; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+      .section-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+    }
+    @media (max-width: 600px) {
+      .product-grid { grid-template-columns: 1fr; }
+      .materials-right { grid-template-columns: 1fr 1fr; }
+      .care-hero-right { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <a href="#" class="nav-logo">
-      <svg width="130" height="32" viewBox="0 0 130 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Liquisity">
+  <!-- CURSOR -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- TOAST -->
+  <div id="toast"></div>
+
+  <!-- ══════════════════════════════════
+       NAVBAR
+  ══════════════════════════════════ -->
+  <nav id="navbar">
+    <a class="nav-logo-wrap" href="#" onclick="navigate('home');return false;" aria-label="Liquisity Home">
+      <svg viewBox="0 0 165 36" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="logoGrad" x1="0" y1="0" x2="130" y2="32" gradientUnits="userSpaceOnUse">
-            <stop offset="0%"   stop-color="#b0b8c0"/>
-            <stop offset="28%"  stop-color="#e0e0e0"/>
-            <stop offset="50%"  stop-color="#9aa2aa"/>
-            <stop offset="72%"  stop-color="#d0d0d0"/>
-            <stop offset="100%" stop-color="#8a9098"/>
+          <linearGradient id="navDrip" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#b8c4cc"/>
+            <stop offset="100%" stop-color="#7888a0"/>
           </linearGradient>
-          <linearGradient id="logoGradDark" x1="0" y1="0" x2="130" y2="32" gradientUnits="userSpaceOnUse">
-            <stop offset="0%"   stop-color="#111"/>
-            <stop offset="100%" stop-color="#333"/>
+          <linearGradient id="navWord" x1="0" y1="0" x2="160" y2="36" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stop-color="#0a0a0a"/>
+            <stop offset="100%" stop-color="#2c2c2e"/>
           </linearGradient>
         </defs>
-        <!-- Drip accent mark above L -->
-        <ellipse cx="5.5" cy="4.5" rx="2.5" ry="3.5" fill="url(#logoGrad)" opacity="0.9"/>
-        <path d="M5.5 7.5 Q4 11 5.5 13 Q7 11 5.5 7.5Z" fill="url(#logoGrad)" opacity="0.9"/>
-        <!-- Wordmark -->
-        <text x="14" y="24" font-family="'Cormorant Garamond', serif" font-size="22" font-weight="400" letter-spacing="1.5" fill="url(#logoGradDark)">Liquisity</text>
+        <ellipse cx="7" cy="6" rx="3.5" ry="4.5" fill="url(#navDrip)" opacity="0.9"/>
+        <path d="M7 10 Q4.8 15.5 7 18.5 Q9.2 15.5 7 10Z" fill="url(#navDrip)" opacity="0.9"/>
+        <text x="18" y="27" font-family="'Cormorant Garamond', Georgia, serif" font-size="26" font-weight="400" letter-spacing="2" fill="url(#navWord)">Liquisity</text>
       </svg>
     </a>
+
     <ul class="nav-links">
-      <li><a href="#">Shop</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Materials</a></li>
-      <li><a href="#">Care</a></li>
+      <li><a href="#" id="nav-home"      onclick="navigate('home');return false;"      class="active">Home</a></li>
+      <li><a href="#" id="nav-shop"      onclick="navigate('shop');return false;"             >Shop</a></li>
+      <li><a href="#" id="nav-about"     onclick="navigate('about');return false;"            >About</a></li>
+      <li><a href="#" id="nav-materials" onclick="navigate('materials');return false;"        >Materials</a></li>
+      <li><a href="#" id="nav-care"      onclick="navigate('care');return false;"             >Care</a></li>
     </ul>
-    <a href="#" class="nav-cta">Shop Now</a>
+
+    <div class="nav-right">
+      <a href="#" class="nav-bag" title="Bag" onclick="showToast('Your bag is empty.');return false;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+      </a>
+      <button class="nav-shop-btn" onclick="navigate('shop')">Shop Now</button>
+    </div>
   </nav>
 
   <!-- MARQUEE -->
   <div class="marquee-wrap">
     <div class="marquee-track">
-      <!-- duplicate for seamless loop -->
-      <span class="marquee-item">Chrome Finish</span>
-      <span class="marquee-item">Precision Fit</span>
-      <span class="marquee-item">Mirror Polish</span>
-      <span class="marquee-item">AirPods Pro Compatible</span>
-      <span class="marquee-item">Shiny Silver Shell</span>
-      <span class="marquee-item">Free Shipping</span>
-      <span class="marquee-item">Metal Alloy</span>
-      <span class="marquee-item">Limited Drops</span>
-      <span class="marquee-item">Chrome Finish</span>
-      <span class="marquee-item">Precision Fit</span>
-      <span class="marquee-item">Mirror Polish</span>
-      <span class="marquee-item">AirPods Pro Compatible</span>
-      <span class="marquee-item">Shiny Silver Shell</span>
-      <span class="marquee-item">Free Shipping</span>
-      <span class="marquee-item">Metal Alloy</span>
-      <span class="marquee-item">Limited Drops</span>
+      <span class="marquee-item">Chrome Finish &nbsp;·&nbsp; </span>
+      <span class="marquee-item">Precision Fit &nbsp;·&nbsp; </span>
+      <span class="marquee-item">Mirror Polish &nbsp;·&nbsp; </span>
+      <span class="marquee-item">AirPods Pro 3 Compatible &nbsp;·&nbsp; </span>
+      <span class="marquee-item">Metal Alloy Construction &nbsp;·&nbsp; </span>
+      <span class="marquee-item">Free Worldwide Shipping &nbsp;·&nbsp; </span>
+      <span class="marquee-item">Sculpted Form &nbsp;·&nbsp; </span>
+      <span class="marquee-item">Limited Drops Only &nbsp;·&nbsp; </span>
+      <span class="marquee-item">Chrome Finish &nbsp;·&nbsp; </span>
+      <span class="marquee-item">Precision Fit &nbsp;·&nbsp; </span>
+      <span class="marquee-item">Mirror Polish &nbsp;·&nbsp; </span>
+      <span class="marquee-item">AirPods Pro 3 Compatible &nbsp;·&nbsp; </span>
+      <span class="marquee-item">Metal Alloy Construction &nbsp;·&nbsp; </span>
+      <span class="marquee-item">Free Worldwide Shipping &nbsp;·&nbsp; </span>
+      <span class="marquee-item">Sculpted Form &nbsp;·&nbsp; </span>
+      <span class="marquee-item">Limited Drops Only &nbsp;·&nbsp; </span>
     </div>
   </div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-left reveal">
-      <p class="hero-eyebrow">Premium AirPods Cases · Chrome Edition</p>
-      <h1 class="hero-title">Liquid<br><span class="silver-word chrome-text">Chrome</span></h1>
-      <p class="hero-sub chrome-text">Worn Daily.</p>
-      <p class="hero-desc">
-        AirPods cases that mirror the world around you — constructed with metal alloy,
-        polished to perfection. Suitable for AirPods Pro 3 &amp; AirPods 4.
-      </p>
-      <div class="hero-btns">
-        <a href="#" class="btn-primary">Shop Cases</a>
-        <a href="#" class="btn-ghost">View Materials</a>
+  <!-- ══════════════════════════════════════════════════════════
+       PAGE: HOME
+  ══════════════════════════════════════════════════════════ -->
+  <div id="page-home" class="page active">
+
+    <!-- HERO -->
+    <section class="home-hero">
+      <div class="home-hero-left">
+        <p class="eyebrow reveal">Premium AirPods Cases · Chrome Edition</p>
+        <h1 class="hero-h1 reveal" style="transition-delay:.08s">
+          Liquid<br>
+          <span class="line-chrome chrome-text">Chrome</span>
+        </h1>
+        <p class="hero-tagline chrome-text2 reveal" style="transition-delay:.14s">Worn Daily.</p>
+        <p class="hero-desc reveal" style="transition-delay:.20s">
+          AirPods cases that mirror the world around you — constructed with real
+          metal alloy, polished to perfection. Suitable for AirPods Pro 3 and AirPods 4.
+        </p>
+        <div class="hero-actions reveal" style="transition-delay:.26s">
+          <button class="btn-pill-dark" onclick="navigate('shop')">Shop Cases</button>
+          <button class="btn-pill-ghost" onclick="navigate('materials')">View Materials</button>
+        </div>
+        <div class="scroll-hint reveal" style="transition-delay:.36s">
+          <span class="scroll-hint-line"></span>
+          <span>Scroll</span>
+        </div>
+        <div class="hero-divider"></div>
       </div>
-      <div class="hero-line"></div>
+      <div class="home-hero-right">
+        <img
+          class="hero-float-img"
+          src="CrystalDripAirPodsCover-silver-xtendedidentity-02.webp"
+          alt="Liquisity Chrome AirPods Case"
+        />
+        <div class="hero-right-label">
+          <span>AirPods Pro 3</span>
+          <span>AirPods 4</span>
+          <span>Metal Alloy</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features-section">
+      <div class="section-header reveal">
+        <div>
+          <p class="section-label">What sets us apart</p>
+          <h2 class="section-title">Built without<br><em>compromise.</em></h2>
+        </div>
+        <a href="#" class="section-link" onclick="navigate('materials');return false;">
+          Materials deep-dive
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="features-grid">
+        <div class="feat-card reveal" data-num="01">
+          <svg class="feat-icon" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="16" stroke="#c8cdd2" stroke-width="1.5"/><circle cx="20" cy="20" r="8" stroke="#c8cdd2" stroke-width="1"/><circle cx="20" cy="20" r="2" fill="#a0a8b0"/></svg>
+          <p class="feat-name chrome-text">Metal Alloy</p>
+          <p class="feat-desc">Real metal — not paint, not film. The same electroplating technique used in high-end automotive trim. A surface that lasts years, not months.</p>
+        </div>
+        <div class="feat-card reveal" data-num="02" style="transition-delay:.1s">
+          <svg class="feat-icon" viewBox="0 0 40 40" fill="none"><rect x="8" y="8" width="24" height="24" rx="6" stroke="#c8cdd2" stroke-width="1.5"/><rect x="13" y="13" width="14" height="14" rx="3" stroke="#c8cdd2" stroke-width="1"/></svg>
+          <p class="feat-name chrome-text">Precision Fit</p>
+          <p class="feat-desc">Engineered to 0.1mm tolerances for AirPods Pro 3 and AirPods 4. The lid closes with a satisfying magnetic snap. Wireless charging fully unobstructed.</p>
+        </div>
+        <div class="feat-card reveal" data-num="03" style="transition-delay:.2s">
+          <svg class="feat-icon" viewBox="0 0 40 40" fill="none"><path d="M20 6C10 10 8 18 12 24C16 30 24 30 28 24C32 18 30 10 20 6Z" stroke="#c8cdd2" stroke-width="1.5" fill="none"/><path d="M20 6C26 12 28 20 20 26C12 20 14 12 20 6Z" stroke="#c8cdd2" stroke-width=".8" fill="none"/></svg>
+          <p class="feat-name chrome-text">Sculpted Form</p>
+          <p class="feat-desc">Organic geometry inspired by liquid metal in motion. Each surface catches light differently — no two angles look the same.</p>
+        </div>
+        <div class="feat-card reveal" data-num="04">
+          <svg class="feat-icon" viewBox="0 0 40 40" fill="none"><path d="M12 20L18 26L28 14" stroke="#c8cdd2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="20" r="14" stroke="#c8cdd2" stroke-width="1"/></svg>
+          <p class="feat-name chrome-text">Wireless Ready</p>
+          <p class="feat-desc">Designed from day one with MagSafe and Qi2 in mind. Charge freely, without removing the case. No compromises, no workarounds.</p>
+        </div>
+        <div class="feat-card reveal" data-num="05" style="transition-delay:.1s">
+          <svg class="feat-icon" viewBox="0 0 40 40" fill="none"><path d="M8 28L20 12L32 28" stroke="#c8cdd2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 28L20 20L26 28" stroke="#c8cdd2" stroke-width=".8" fill="none"/></svg>
+          <p class="feat-name chrome-text">Mirror Polish</p>
+          <p class="feat-desc">Each unit passes through a 6-stage polishing cycle — hand-inspected for surface perfection. Rated IP53 for sweat and light rain resistance.</p>
+        </div>
+        <div class="feat-card reveal" data-num="06" style="transition-delay:.2s">
+          <svg class="feat-icon" viewBox="0 0 40 40" fill="none"><rect x="10" y="16" width="20" height="14" rx="3" stroke="#c8cdd2" stroke-width="1.5"/><path d="M14 16V12A6 6 0 0126 12V16" stroke="#c8cdd2" stroke-width="1.5" fill="none"/></svg>
+          <p class="feat-name chrome-text">Limited Drops</p>
+          <p class="feat-desc">Liquisity runs in small numbered batches — ensuring quality control and exclusivity. Once a drop sells out, it's gone. Join the list for early access.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPOTLIGHT -->
+    <section class="spotlight">
+      <div class="spotlight-img-side reveal-left">
+        <div class="badge-limited">Drop 001 — Chrome Silver</div>
+        <img src="CrystalDripAirPodsCover-silver-xtendedidentity-02.webp" alt="Liquisity Chrome Case"/>
+      </div>
+      <div class="spotlight-content reveal-right">
+        <p class="eyebrow">Flagship Edition</p>
+        <h2>Own the<br><em>reflection.</em></h2>
+        <p>The Chrome Silver is the founding edition — the case that started Liquisity. Each one is numbered, signed, and arrives in a matte black collector's box. This is not just a case. This is a statement.</p>
+        <div class="spec-rows">
+          <div class="spec-row"><span class="spec-row-label">Material</span><span class="spec-row-val">Metal Alloy · Chrome Plated</span></div>
+          <div class="spec-row"><span class="spec-row-label">Compatibility</span><span class="spec-row-val">AirPods Pro 3 · AirPods 4</span></div>
+          <div class="spec-row"><span class="spec-row-label">Charging</span><span class="spec-row-val">MagSafe · Qi2 · Lightning</span></div>
+          <div class="spec-row"><span class="spec-row-label">Tolerance</span><span class="spec-row-val">±0.1mm precision</span></div>
+          <div class="spec-row"><span class="spec-row-label">Price</span><span class="spec-row-val">€89</span></div>
+        </div>
+        <button class="btn-pill-dark" onclick="navigate('shop')">Shop This Edition</button>
+      </div>
+    </section>
+
+    <!-- DARK STRIP -->
+    <section class="materials-strip">
+      <div class="materials-inner">
+        <div class="materials-left reveal-left">
+          <h2>The material<br><em>is the message.</em></h2>
+          <p>We source the same electroplating compounds used in Swiss watchmaking and premium automotive. Every batch is independently tested before shipping.</p>
+          <button class="btn-pill-light" onclick="navigate('materials')">Explore Materials</button>
+        </div>
+        <div class="materials-right reveal-right">
+          <div class="mat-stat"><div class="mat-stat-num chrome-text">6×</div><div class="mat-stat-label">Polishing Stages</div></div>
+          <div class="mat-stat"><div class="mat-stat-num chrome-text">0.1</div><div class="mat-stat-label">mm Tolerance</div></div>
+          <div class="mat-stat"><div class="mat-stat-num chrome-text">IP53</div><div class="mat-stat-label">Rated Finish</div></div>
+          <div class="mat-stat"><div class="mat-stat-num chrome-text">100%</div><div class="mat-stat-label">Hand-inspected</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials-section">
+      <div class="section-header reveal">
+        <div>
+          <p class="section-label">What people are saying</p>
+          <h2 class="section-title">Worn by<br><em>thousands.</em></h2>
+        </div>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal">
+          <div class="stars">
+            <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-text">"I've bought a lot of AirPods cases. Nothing comes close to the feeling of this one. The weight, the finish — it's genuinely luxurious."</p>
+          <p class="testimonial-author">— Marcus A. · Verified buyer</p>
+        </div>
+        <div class="testimonial-card reveal" style="transition-delay:.12s">
+          <div class="stars">
+            <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-text">"The drop sold out in 4 minutes. I got mine on resale and it was worth every cent. The quality is genuinely on another level."</p>
+          <p class="testimonial-author">— Sasha K. · Verified buyer</p>
+        </div>
+        <div class="testimonial-card reveal" style="transition-delay:.24s">
+          <div class="stars">
+            <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-text">"Every designer friend I have has asked me where I got this. I sent them to Liquisity but they missed the drop. That's a flex."</p>
+          <p class="testimonial-author">— Lena M. · Verified buyer</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <span class="cta-eyebrow reveal">Limited Drops</span>
+      <h2 class="cta-title reveal" style="transition-delay:.08s">Own the<br><span class="chrome-text">Reflection.</span></h2>
+      <p class="cta-subtitle reveal" style="transition-delay:.15s">Join the list to get early access.</p>
+      <div class="email-form-wrap reveal" style="transition-delay:.22s">
+        <div class="email-form">
+          <input type="email" placeholder="your@email.com" />
+          <button onclick="showToast('You\'re on the list! ✓')">Notify Me</button>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /page-home -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       PAGE: SHOP
+  ══════════════════════════════════════════════════════════ -->
+  <div id="page-shop" class="page">
+
+    <div class="shop-hero">
+      <p class="eyebrow reveal">The Collection</p>
+      <h1 class="reveal" style="transition-delay:.08s">Shop<br><span class="chrome-text">Cases</span></h1>
+      <p class="reveal" style="transition-delay:.14s">Every edition is produced in a numbered run. When it's gone, it's gone. Select your edition below.</p>
     </div>
-    <div class="hero-right">
-      <img
-        class="hero-product"
-        src="CrystalDripAirPodsCover-silver-xtendedidentity-02.webp"
-        alt="Liquisity Chrome AirPods Case"
-      />
-      <div class="hero-corner-label">
-        <span>AirPods Pro 3</span>
-        <span>AirPods 4</span>
-        <span>Metal Alloy</span>
+
+    <div class="shop-filters reveal">
+      <button class="filter-pill active" onclick="setFilter(this,'all')">All Editions</button>
+      <button class="filter-pill" onclick="setFilter(this,'available')">Available</button>
+      <button class="filter-pill" onclick="setFilter(this,'sold')">Sold Out</button>
+      <button class="filter-pill" onclick="setFilter(this,'upcoming')">Upcoming</button>
+    </div>
+
+    <div class="product-grid">
+      <div class="product-card reveal" data-status="available">
+        <div class="product-card-img">
+          <div class="product-card-badge badge-new">New</div>
+          <img src="CrystalDripAirPodsCover-silver-xtendedidentity-02.webp" alt="Chrome Silver"/>
+        </div>
+        <div class="product-card-info">
+          <p class="product-name">Chrome Silver</p>
+          <p class="product-variant">Drop 001 · Metal Alloy · Mirror Polish</p>
+          <div class="product-footer">
+            <span class="product-price">€89</span>
+            <button class="btn-add" onclick="showToast('Chrome Silver added to bag ✓')">Add to Bag</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card reveal" data-status="available" style="transition-delay:.1s">
+        <div class="product-card-img" style="background:linear-gradient(145deg,#e8e4de,#ddd8d0)">
+          <div class="product-card-badge badge-drop">Drop 002</div>
+          <img src="CrystalDripAirPodsCover-silver-xtendedidentity-02.webp" alt="Brushed Frost" style="filter:drop-shadow(0 12px 32px rgba(0,0,0,0.1)) sepia(0.2) hue-rotate(10deg)"/>
+        </div>
+        <div class="product-card-info">
+          <p class="product-name">Brushed Frost</p>
+          <p class="product-variant">Drop 002 · Satin Alloy · Matte Finish</p>
+          <div class="product-footer">
+            <span class="product-price">€94</span>
+            <button class="btn-add" onclick="showToast('Brushed Frost added to bag ✓')">Add to Bag</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card reveal" data-status="sold" style="transition-delay:.2s">
+        <div class="product-card-img" style="background:linear-gradient(145deg,#e4e0d8,#d8d0c8);opacity:.7">
+          <div class="product-card-badge badge-sold">Sold Out</div>
+          <img src="CrystalDripAirPodsCover-silver-xtendedidentity-02.webp" alt="Void Black" style="filter:drop-shadow(0 12px 32px rgba(0,0,0,0.18)) invert(0.85) saturate(0)"/>
+        </div>
+        <div class="product-card-info">
+          <p class="product-name">Void Black</p>
+          <p class="product-variant">Drop 000 · Matte Black Alloy · Collector's</p>
+          <div class="product-footer">
+            <span class="product-price" style="color:var(--lighter)">€119</span>
+            <button class="btn-add-ghost">Sold Out</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card reveal" data-status="upcoming">
+        <div class="product-card-img" style="background:linear-gradient(145deg,#f2ede4,#e8e0d4)">
+          <div class="product-card-badge badge-drop">Soon</div>
+          <img src="CrystalDripAirPodsCover-silver-xtendedidentity-02.webp" alt="Rose Chrome" style="filter:drop-shadow(0 12px 32px rgba(0,0,0,0.1)) sepia(0.4) saturate(1.4) hue-rotate(-20deg)"/>
+        </div>
+        <div class="product-card-info">
+          <p class="product-name">Rose Chrome</p>
+          <p class="product-variant">Drop 003 · Pink-Tinted Alloy · Coming Q3</p>
+          <div class="product-footer">
+            <span class="product-price">€99</span>
+            <button class="btn-add" onclick="showToast('You\'ll be notified for Rose Chrome ✓')">Notify Me</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card reveal" data-status="upcoming" style="transition-delay:.1s">
+        <div class="product-card-img" style="background:linear-gradient(145deg,#e0e4e8,#d4d8de)">
+          <div class="product-card-badge badge-drop">Soon</div>
+          <img src="CrystalDripAirPodsCover-silver-xtendedidentity-02.webp" alt="Ice Blue" style="filter:drop-shadow(0 12px 32px rgba(0,0,0,0.1)) sepia(0.1) saturate(1.2) hue-rotate(160deg)"/>
+        </div>
+        <div class="product-card-info">
+          <p class="product-name">Ice Blue</p>
+          <p class="product-variant">Drop 004 · Blue Alloy · Coming Q4</p>
+          <div class="product-footer">
+            <span class="product-price">€99</span>
+            <button class="btn-add" onclick="showToast('You\'ll be notified for Ice Blue ✓')">Notify Me</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card reveal" data-status="available" style="transition-delay:.2s">
+        <div class="product-card-img" style="background:linear-gradient(145deg,#eee8e0,#e4dcd0)">
+          <div class="product-card-badge badge-new">New</div>
+          <img src="CrystalDripAirPodsCover-silver-xtendedidentity-02.webp" alt="Platinum" style="filter:drop-shadow(0 12px 32px rgba(0,0,0,0.12)) brightness(1.1) saturate(0.6)"/>
+        </div>
+        <div class="product-card-info">
+          <p class="product-name">Platinum</p>
+          <p class="product-variant">Drop 005 · Ultra-Polish · Limited 50 Units</p>
+          <div class="product-footer">
+            <span class="product-price">€139</span>
+            <button class="btn-add" onclick="showToast('Platinum added to bag ✓')">Add to Bag</button>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
 
-  <!-- FEATURES -->
-  <section class="features">
-    <div class="feature reveal">
-      <span class="feature-num">01</span>
-      <p class="feature-title chrome-text">Metal Alloy</p>
-      <p class="feature-desc">Real metal — not paint, not film. The same technique used in automotive trim. Built to last.</p>
-    </div>
-    <div class="feature reveal" style="transition-delay:0.12s">
-      <span class="feature-num">02</span>
-      <p class="feature-title chrome-text">Precision Fit</p>
-      <p class="feature-desc">Engineered to 0.1mm tolerances for AirPods Pro 3 and AirPods 4. Lid closes with a magnetic snap. Wireless charging unobstructed.</p>
-    </div>
-    <div class="feature reveal" style="transition-delay:0.24s">
-      <span class="feature-num">03</span>
-      <p class="feature-title chrome-text">Sculpted Form</p>
-      <p class="feature-desc">Organic, flowing geometry inspired by liquid metal. Each surface catches light differently. No two angles look the same.</p>
-    </div>
-  </section>
+  </div><!-- /page-shop -->
 
-  <!-- DETAIL -->
-  <section class="detail">
-    <div class="detail-img-wrap reveal">
-      <div class="detail-badge">Limited Drop</div>
-      <img
-        src="CrystalDripAirPodsCover-silver-xtendedidentity-02.webp"
-        alt="Liquisity Case detail"
-      />
-    </div>
-    <div class="detail-content reveal" style="transition-delay:0.15s">
-      <h2>Own the<br><em class="chrome-text">reflection.</em></h2>
-      <p>
-        Each case is individually polished through a multi-stage process — the same
-        used in precision automotive and aerospace parts. The result is a mirror surface
-        that ages beautifully and holds its shine indefinitely.
-      </p>
-      <ul class="spec-list">
-        <li>Metal alloy shell — chrome plated</li>
-        <li>Fits AirPods Pro 3 &amp; AirPods 4</li>
-        <li>0.1mm precision tolerance</li>
-        <li>Magnetic lid closure</li>
-        <li>Wireless charging compatible</li>
-        <li>Free worldwide shipping</li>
-      </ul>
-      <a href="#" class="btn-primary">Shop Cases</a>
-    </div>
-  </section>
+  <!-- ══════════════════════════════════════════════════════════
+       PAGE: MATERIALS
+  ══════════════════════════════════════════════════════════ -->
+  <div id="page-materials" class="page">
 
-  <!-- EMAIL -->
-  <section class="email-section">
-    <span class="email-eyebrow">Limited Drops</span>
-    <h2 class="email-title">Own the<br><span class="thin chrome-text">Reflection.</span></h2>
-    <p class="email-sub">Join the list to get early access.</p>
-    <div class="email-form">
-      <input type="email" placeholder="your@email.com" />
-      <button type="submit">Notify Me</button>
+    <div class="mat-hero">
+      <p class="eyebrow reveal">The Craft</p>
+      <h1 class="reveal" style="transition-delay:.08s">Materials<br><span class="chrome-text">Matter.</span></h1>
+      <p class="reveal" style="transition-delay:.14s">We don't cut corners on material science. Every Liquisity case goes through a rigorous multi-stage process before it ever reaches your hands.</p>
     </div>
-  </section>
 
-  <!-- FOOTER -->
+    <section class="process-section">
+      <div class="section-header reveal">
+        <div>
+          <p class="section-label">How it's made</p>
+          <h2 class="section-title">The Chrome<br><em>Process.</em></h2>
+        </div>
+      </div>
+      <div class="process-steps">
+        <div class="process-step reveal">
+          <div class="step-line"></div>
+          <p class="step-num">Step 01</p>
+          <p class="step-name chrome-text">Alloy Casting</p>
+          <p class="step-desc">We start with a zinc-aluminium alloy, chosen for its lightweight properties and exceptional receptivity to electroplating. Molten alloy is injected at precision pressure into CNC-milled tooling — producing near-zero flash and perfectly consistent wall thickness throughout.</p>
+        </div>
+        <div class="process-step reveal" style="transition-delay:.1s">
+          <div class="step-line"></div>
+          <p class="step-num">Step 02</p>
+          <p class="step-name chrome-text">CNC Finishing</p>
+          <p class="step-desc">Post-cast, each shell passes through a 5-axis CNC machine that cuts the precise profile — including the 0.1mm lip around the hinge that ensures the lid engages cleanly, and the port clearances that allow full USB-C access without modification.</p>
+        </div>
+        <div class="process-step reveal" style="transition-delay:.2s">
+          <div class="step-line"></div>
+          <p class="step-num">Step 03</p>
+          <p class="step-name chrome-text">Electroplating</p>
+          <p class="step-desc">The alloy surface is prepared through alkaline degreasing, acid activation, and copper pre-plate before the chrome layer is deposited in a controlled bath — ensuring uniform adhesion and that characteristic mirror depth. The layer thickness is 0.3–0.5μm.</p>
+        </div>
+        <div class="process-step reveal" style="transition-delay:.3s">
+          <div class="step-line"></div>
+          <p class="step-num">Step 04</p>
+          <p class="step-name chrome-text">Polish & QC</p>
+          <p class="step-desc">Six manual polishing stages with progressively finer compounds bring the surface to a clarity rating of Ra &lt;0.05μm — smoother than optical glass. Every unit is then hand-inspected under 5000K lighting and measured with a surface profilometer before packing.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="comparison-section">
+      <div class="section-header reveal">
+        <div>
+          <p class="section-label">Why metal?</p>
+          <h2 class="section-title">Chrome vs<br><em>the rest.</em></h2>
+        </div>
+      </div>
+      <table class="comparison-table reveal">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Liquisity Chrome</th>
+            <th>Chrome-Film Plastic</th>
+            <th>Anodised Aluminium</th>
+            <th>Silicone</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-feature">Mirror depth</td><td><span class="check">✓ True mirror</span></td><td>Surface only</td><td>Sheen only</td><td><span class="cross">✗</span></td></tr>
+          <tr><td class="td-feature">Scratch resistance</td><td><span class="check">✓ High (Rockwell 60+)</span></td><td>Low — peels</td><td>Moderate</td><td><span class="cross">✗ Very low</span></td></tr>
+          <tr><td class="td-feature">Longevity</td><td><span class="check">✓ 5+ years</span></td><td>6–18 months</td><td>3–5 years</td><td>1–2 years</td></tr>
+          <tr><td class="td-feature">Wireless charging</td><td><span class="check">✓ Unobstructed</span></td><td><span class="check">✓</span></td><td>Partial interference</td><td><span class="check">✓</span></td></tr>
+          <tr><td class="td-feature">Weight impact</td><td>+18g</td><td>+8g</td><td>+14g</td><td>+6g</td></tr>
+          <tr><td class="td-feature">Finish rating</td><td><span class="check">Ra &lt;0.05μm</span></td><td>Ra ~0.4μm</td><td>Ra ~0.2μm</td><td>N/A</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </div><!-- /page-materials -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       PAGE: CARE
+  ══════════════════════════════════════════════════════════ -->
+  <div id="page-care" class="page">
+
+    <div class="care-hero">
+      <div>
+        <p class="eyebrow reveal">Maintenance Guide</p>
+        <h1 class="reveal" style="transition-delay:.08s">Keep it<br><span class="chrome-text">Brilliant.</span></h1>
+        <p class="reveal" style="transition-delay:.14s">Chrome is not fragile — but it rewards those who treat it well. Follow this guide to keep your Liquisity case looking flawless for years.</p>
+      </div>
+      <div class="care-hero-right reveal" style="transition-delay:.2s">
+        <div class="care-stat-card"><div class="care-stat-num chrome-text">5+</div><div class="care-stat-label">Year lifespan</div></div>
+        <div class="care-stat-card"><div class="care-stat-num chrome-text">IP53</div><div class="care-stat-label">Water rating</div></div>
+        <div class="care-stat-card"><div class="care-stat-num chrome-text">2min</div><div class="care-stat-label">Weekly clean</div></div>
+        <div class="care-stat-card"><div class="care-stat-num chrome-text">0</div><div class="care-stat-label">Special products</div></div>
+      </div>
+    </div>
+
+    <section class="care-guide">
+      <div class="section-header reveal">
+        <div>
+          <p class="section-label">Care Steps</p>
+          <h2 class="section-title">Simple routine,<br><em>lasting brilliance.</em></h2>
+        </div>
+      </div>
+      <div class="care-steps">
+        <div class="care-step reveal">
+          <div class="care-step-icon">💧</div>
+          <div class="care-step-text">
+            <h3>Daily Wipe</h3>
+            <p>Use a soft, lint-free microfibre cloth for a daily wipe. This removes fingerprint oils before they can oxidise on the surface. Takes 10 seconds. No liquid required daily — dry cloth only.</p>
+          </div>
+        </div>
+        <div class="care-step reveal" style="transition-delay:.1s">
+          <div class="care-step-icon">✨</div>
+          <div class="care-step-text">
+            <h3>Weekly Polish</h3>
+            <p>Once a week, apply one drop of isopropyl alcohol (70%) to your cloth and wipe in circular motions. This removes built-up residue and refreshes the mirror surface. Never use abrasive cloths.</p>
+          </div>
+        </div>
+        <div class="care-step reveal">
+          <div class="care-step-icon">🚫</div>
+          <div class="care-step-text">
+            <h3>What to Avoid</h3>
+            <p>Never use bleach-based cleaners, acetone, or scouring pads. These will strip the chrome layer permanently. Avoid prolonged contact with salt water — rinse immediately if exposed to the sea.</p>
+          </div>
+        </div>
+        <div class="care-step reveal" style="transition-delay:.1s">
+          <div class="care-step-icon">📦</div>
+          <div class="care-step-text">
+            <h3>Storage</h3>
+            <p>When not in use, store in the included matte black pouch. This prevents micro-scratches from keys and coins in your bag. The pouch is made from 300gsm merino wool felt — sourced in New Zealand.</p>
+          </div>
+        </div>
+        <div class="care-step reveal">
+          <div class="care-step-icon">🔧</div>
+          <div class="care-step-text">
+            <h3>Deep Restoration</h3>
+            <p>For deeper scratches or haze, Liquisity offers a Re-Polish service. Send your case to our workshop and we'll return it to factory condition within 5 business days for just €24 — including return shipping.</p>
+          </div>
+        </div>
+        <div class="care-step reveal" style="transition-delay:.1s">
+          <div class="care-step-icon">☀️</div>
+          <div class="care-step-text">
+            <h3>Heat & UV</h3>
+            <p>The chrome plating is UV-stable — no yellowing or fading in sunlight. Avoid leaving in enclosed hot spaces above 60°C (a parked car in summer) for extended periods, as this may affect the hinge magnet strength over time.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-section">
+      <div class="section-header reveal">
+        <div>
+          <p class="section-label">FAQ</p>
+          <h2 class="section-title">Common<br><em>questions.</em></h2>
+        </div>
+      </div>
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">Will the chrome peel or flake over time?<span class="faq-icon">+</span></button>
+          <div class="faq-answer"><p>No. Unlike chrome-film stickers or thin PVD coatings, Liquisity uses a full electroplated chrome layer bonded to zinc-aluminium alloy. The adhesion is metallurgical — it's part of the surface, not on top of it. The only way to damage it is with abrasive chemicals or physical impact that dents the base metal.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">Does it work with wireless charging?<span class="faq-icon">+</span></button>
+          <div class="faq-answer"><p>Yes. We designed the case from day one to be wireless-charging compatible. The alloy composition and shell geometry allow MagSafe and Qi2 signals to pass through without interference. Simply place your AirPods on any compatible charger — no need to remove the Liquisity shell.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">Will it scratch my other devices in a bag?<span class="faq-icon">+</span></button>
+          <div class="faq-answer"><p>The chrome surface is quite hard (Rockwell 60+), so it's more likely to scratch softer objects than be scratched itself. We include a merino wool felt pouch with every order for exactly this reason — protecting both your Liquisity case and your other belongings.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">Is the case heavy?<span class="faq-icon">+</span></button>
+          <div class="faq-answer"><p>The Chrome Silver edition adds approximately 18g to the standard AirPods case weight. Most users describe it as feeling "satisfyingly substantial" — similar to the difference between a plastic and metal pen. It's noticeable in a positive way, and speaks to the quality inside your pocket.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">What is the return policy?<span class="faq-icon">+</span></button>
+          <div class="faq-answer"><p>We offer a 30-day no-questions-asked return policy. If you're not satisfied for any reason, contact us and we'll arrange collection. Limited edition drops may not be re-stocked, but you can always exchange for a future drop credit.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">When is the next drop?<span class="faq-icon">+</span></button>
+          <div class="faq-answer"><p>We don't announce drop dates publicly — we notify our list first. Join the email list on the home page and you'll receive 24-hour early access to every drop before it goes public. This is the only reliable way to secure a unit.</p></div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /page-care -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       PAGE: ABOUT
+  ══════════════════════════════════════════════════════════ -->
+  <div id="page-about" class="page">
+
+    <div class="about-hero">
+      <div class="about-hero-content">
+        <p class="eyebrow reveal" style="color:rgba(255,255,255,0.35)">Our Story</p>
+        <h1 class="reveal" style="transition-delay:.1s">Liquid<br><span class="chrome-text">Chrome.</span><br>Born Daily.</h1>
+        <p class="reveal" style="transition-delay:.18s">Liquisity was founded on a simple frustration: every AirPods case on the market felt like an afterthought. Plastic, silicone, leather — nothing matched the precision of the device inside it. We decided to change that.</p>
+      </div>
+    </div>
+
+    <section class="about-story">
+      <div class="about-story-left">
+        <h2>We didn't start with<br><em>a product.</em><br>We started with a standard.</h2>
+        <p>The Liquisity founding team spent two years in workshops — testing alloy compositions, plating chemistries, and hinge mechanisms — before releasing a single unit to the public. We refused to ship anything that didn't feel exceptional in hand.</p>
+        <p>Drop 000 — the Void Black — sold out in under 6 minutes. We knew we were onto something. Since then, every drop has sold out within the hour of going live.</p>
+        <button class="btn-pill-dark" onclick="navigate('shop')" style="margin-top:8px">See the Collection</button>
+      </div>
+      <div class="about-story-right">
+        <p>Our workshop is in Tallinn, Estonia — a city with a quiet tradition of precision manufacturing and an obsession with getting things right. We work with a team of 12 people, each one responsible for a specific stage of the process.</p>
+        <p>We are not a drop-shipping brand. We are not a print-on-demand operation. Every Liquisity case is designed in-house, tooled in-house, and quality-controlled in-house. We know who made your case. That matters to us.</p>
+        <p>Our ambition is simple: to make the best AirPods case on earth. Not the cheapest. Not the most colourful. The best — the one that, five years from now, still looks as good as the day you unboxed it.</p>
+      </div>
+    </section>
+
+    <section class="about-values">
+      <div class="section-header reveal">
+        <div>
+          <p class="section-label">What we believe</p>
+          <h2 class="section-title">Our<br><em>values.</em></h2>
+        </div>
+      </div>
+      <div class="values-grid">
+        <div class="value-card reveal">
+          <p class="value-num">01 —</p>
+          <h3 class="value-title"><em>Restraint</em> is the highest form of design.</h3>
+          <p class="value-desc">We add nothing that doesn't serve a purpose. No branding on the exterior. No unnecessary features. No gimmicks. Just form serving function, and function done beautifully — so the object becomes invisible and only the experience remains.</p>
+        </div>
+        <div class="value-card reveal" style="transition-delay:.1s">
+          <p class="value-num">02 —</p>
+          <h3 class="value-title">Materials are <em>never</em> a compromise.</h3>
+          <p class="value-desc">We have turned down cheaper plating compounds, lower-grade alloys, and cost-cutting suggestions from every direction. The material is the product. It cannot be negotiated, and it should never apologise for the cost it requires to do right.</p>
+        </div>
+        <div class="value-card reveal" style="transition-delay:.2s">
+          <p class="value-num">03 —</p>
+          <h3 class="value-title">Scarcity is <em>earned</em>, not manufactured.</h3>
+          <p class="value-desc">We run small drops because small drops allow us to maintain quality. Not to create artificial hype. Every unit we sell is inspected by a human being. That limits our volume — and that's exactly the point. Quality at scale is a different product entirely.</p>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /page-about -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════════════════════ -->
   <footer>
-    <div class="footer-logo">
-      <svg width="110" height="28" viewBox="0 0 130 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Liquisity">
-        <defs>
-          <linearGradient id="footerLogoGrad" x1="0" y1="0" x2="130" y2="32" gradientUnits="userSpaceOnUse">
-            <stop offset="0%"   stop-color="#b0b8c0"/>
-            <stop offset="28%"  stop-color="#e0e0e0"/>
-            <stop offset="50%"  stop-color="#9aa2aa"/>
-            <stop offset="72%"  stop-color="#d0d0d0"/>
-            <stop offset="100%" stop-color="#8a9098"/>
-          </linearGradient>
-        </defs>
-        <ellipse cx="5.5" cy="4.5" rx="2.5" ry="3.5" fill="url(#footerLogoGrad)" opacity="0.7"/>
-        <path d="M5.5 7.5 Q4 11 5.5 13 Q7 11 5.5 7.5Z" fill="url(#footerLogoGrad)" opacity="0.7"/>
-        <text x="14" y="24" font-family="'Cormorant Garamond', serif" font-size="22" font-weight="400" letter-spacing="1.5" fill="#555">Liquisity</text>
-      </svg>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <svg viewBox="0 0 165 36" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:26px;width:auto">
+          <defs>
+            <linearGradient id="ftDrip" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#909aa4"/><stop offset="100%" stop-color="#606878"/></linearGradient>
+          </defs>
+          <ellipse cx="7" cy="6" rx="3.5" ry="4.5" fill="url(#ftDrip)" opacity="0.7"/>
+          <path d="M7 10 Q4.8 15.5 7 18.5 Q9.2 15.5 7 10Z" fill="url(#ftDrip)" opacity="0.7"/>
+          <text x="18" y="27" font-family="'Cormorant Garamond', Georgia, serif" font-size="26" font-weight="400" letter-spacing="2" fill="rgba(255,255,255,0.72)">Liquisity</text>
+        </svg>
+        <p>Premium metal AirPods cases. Constructed with real alloy, polished to perfection. Tallinn, Estonia. Est. 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#" onclick="navigate('shop');return false;">All Cases</a></li>
+          <li><a href="#" onclick="navigate('shop');return false;">Chrome Silver</a></li>
+          <li><a href="#" onclick="navigate('shop');return false;">Brushed Frost</a></li>
+          <li><a href="#" onclick="navigate('shop');return false;">Upcoming Drops</a></li>
+          <li><a href="#" onclick="showToast('Gift cards coming soon.');return false;">Gift Cards</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Info</h4>
+        <ul>
+          <li><a href="#" onclick="navigate('about');return false;">About</a></li>
+          <li><a href="#" onclick="navigate('materials');return false;">Materials</a></li>
+          <li><a href="#" onclick="navigate('care');return false;">Care Guide</a></li>
+          <li><a href="#" onclick="showToast('Opening support…');return false;">Support</a></li>
+          <li><a href="#" onclick="showToast('30-day returns. Email us.');return false;">Returns</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#" onclick="showToast('Privacy policy coming soon.');return false;">Privacy</a></li>
+          <li><a href="#" onclick="showToast('Terms coming soon.');return false;">Terms</a></li>
+          <li><a href="#" onclick="showToast('Cookie settings.');return false;">Cookies</a></li>
+          <li><a href="#" onclick="showToast('Shipping info: 3–5 days worldwide.');return false;">Shipping</a></li>
+        </ul>
+      </div>
     </div>
-    <p class="footer-copy">© 2026 Liquisity. All rights reserved.</p>
-    <ul class="footer-links">
-      <li><a href="#">Instagram</a></li>
-      <li><a href="#">TikTok</a></li>
-      <li><a href="#">Support</a></li>
-      <li><a href="#">Returns</a></li>
-    </ul>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Liquisity OÜ. All rights reserved. Tallinn, Estonia.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-pill" onclick="showToast('Opening Instagram…');return false;">Instagram</a>
+        <a href="#" class="social-pill" onclick="showToast('Opening TikTok…');return false;">TikTok</a>
+        <a href="#" class="social-pill" onclick="showToast('Opening X…');return false;">X</a>
+      </div>
+    </div>
   </footer>
 
+  <!-- ══════════════════════════════════════════════════════════
+       JAVASCRIPT
+  ══════════════════════════════════════════════════════════ -->
   <script>
-    // Reveal on scroll
-    const reveals = document.querySelectorAll('.reveal');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    /* ── CUSTOM CURSOR ──────────────────────────────────────── */
+    const dot  = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+    (function animCursor() {
+      dot.style.left  = mx + 'px';
+      dot.style.top   = my + 'px';
+      rx += (mx - rx) * 0.14;
+      ry += (my - ry) * 0.14;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(animCursor);
+    })();
+
+    document.querySelectorAll('a, button, .product-card, .feat-card, .testimonial-card, .value-card, .care-step')
+      .forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
       });
-    }, { threshold: 0.12 });
-    reveals.forEach(el => io.observe(el));
+
+    /* ── NAVBAR SCROLL ──────────────────────────────────────── */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    /* ── PAGE NAVIGATION ────────────────────────────────────── */
+    const pages   = document.querySelectorAll('.page');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const navMap  = { home: 'nav-home', shop: 'nav-shop', about: 'nav-about', materials: 'nav-materials', care: 'nav-care' };
+
+    function navigate(pageId) {
+      // hide all
+      pages.forEach(p => { p.classList.remove('active'); p.style.display = 'none'; });
+      navLinks.forEach(a => a.classList.remove('active'));
+
+      // activate target
+      const target = document.getElementById('page-' + pageId);
+      if (target) {
+        target.style.display = 'block';
+        requestAnimationFrame(() => target.classList.add('active'));
+      }
+
+      // set active nav link
+      const navId = navMap[pageId];
+      const navEl = navId ? document.getElementById(navId) : null;
+      if (navEl) navEl.classList.add('active');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(initReveals, 120);
+    }
+
+    /* ── SCROLL REVEAL ──────────────────────────────────────── */
+    let revealObserver;
+    function initReveals() {
+      if (revealObserver) revealObserver.disconnect();
+      revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('up');
+            revealObserver.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
+
+      document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+        if (!el.classList.contains('up')) revealObserver.observe(el);
+      });
+    }
+    initReveals();
+
+    /* ── SHOP FILTERS ───────────────────────────────────────── */
+    function setFilter(btn, filter) {
+      document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.product-card').forEach(card => {
+        card.style.opacity = (filter === 'all' || card.dataset.status === filter) ? '1' : '0.22';
+      });
+    }
+
+    /* ── FAQ ACCORDION ──────────────────────────────────────── */
+    function toggleFaq(btn) {
+      const item   = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    /* ── TOAST ──────────────────────────────────────────────── */
+    let toastTimer;
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 3200);
+    }
+
+    /* ── INIT ───────────────────────────────────────────────── */
+    // Ensure only home shows on load
+    pages.forEach(p => { if (!p.classList.contains('active')) p.style.display = 'none'; });
+    document.getElementById('page-home').style.display = 'block';
   </script>
 
 </body>
