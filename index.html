@@ -21,6 +21,15 @@
       --accent:  #8a9ba8;
       --border:  rgba(0,0,0,0.08);
       --shadow:  0 2px 40px rgba(0,0,0,0.07);
+      --chrome-grad: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 25%, #a0a8b0 45%, #d4d4d4 60%, #888f96 80%, #c8c8c8 100%);
+    }
+
+    /* ── CHROME TEXT ─────────────────────────────────────────── */
+    .chrome-text {
+      background: var(--chrome-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     /* ── RESET ──────────────────────────────────────────────── */
@@ -85,11 +94,8 @@
       height: 64px;
     }
     .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
-      font-weight: 400;
-      letter-spacing: 0.04em;
-      color: var(--ink);
+      display: flex;
+      align-items: center;
     }
     .nav-links {
       display: flex;
@@ -484,7 +490,28 @@
 
   <!-- NAV -->
   <nav>
-    <div class="nav-logo">Liquisity</div>
+    <a href="#" class="nav-logo">
+      <svg width="130" height="32" viewBox="0 0 130 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Liquisity">
+        <defs>
+          <linearGradient id="logoGrad" x1="0" y1="0" x2="130" y2="32" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stop-color="#b0b8c0"/>
+            <stop offset="28%"  stop-color="#e0e0e0"/>
+            <stop offset="50%"  stop-color="#9aa2aa"/>
+            <stop offset="72%"  stop-color="#d0d0d0"/>
+            <stop offset="100%" stop-color="#8a9098"/>
+          </linearGradient>
+          <linearGradient id="logoGradDark" x1="0" y1="0" x2="130" y2="32" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stop-color="#111"/>
+            <stop offset="100%" stop-color="#333"/>
+          </linearGradient>
+        </defs>
+        <!-- Drip accent mark above L -->
+        <ellipse cx="5.5" cy="4.5" rx="2.5" ry="3.5" fill="url(#logoGrad)" opacity="0.9"/>
+        <path d="M5.5 7.5 Q4 11 5.5 13 Q7 11 5.5 7.5Z" fill="url(#logoGrad)" opacity="0.9"/>
+        <!-- Wordmark -->
+        <text x="14" y="24" font-family="'Cormorant Garamond', serif" font-size="22" font-weight="400" letter-spacing="1.5" fill="url(#logoGradDark)">Liquisity</text>
+      </svg>
+    </a>
     <ul class="nav-links">
       <li><a href="#">Shop</a></li>
       <li><a href="#">About</a></li>
@@ -521,8 +548,8 @@
   <section class="hero">
     <div class="hero-left reveal">
       <p class="hero-eyebrow">Premium AirPods Cases · Chrome Edition</p>
-      <h1 class="hero-title">Liquid<br><span class="silver-word">Chrome</span></h1>
-      <p class="hero-sub">Worn Daily.</p>
+      <h1 class="hero-title">Liquid<br><span class="silver-word chrome-text">Chrome</span></h1>
+      <p class="hero-sub chrome-text">Worn Daily.</p>
       <p class="hero-desc">
         AirPods cases that mirror the world around you — constructed with metal alloy,
         polished to perfection. Suitable for AirPods Pro 3 &amp; AirPods 4.
@@ -551,17 +578,17 @@
   <section class="features">
     <div class="feature reveal">
       <span class="feature-num">01</span>
-      <p class="feature-title">Metal Alloy</p>
+      <p class="feature-title chrome-text">Metal Alloy</p>
       <p class="feature-desc">Real metal — not paint, not film. The same technique used in automotive trim. Built to last.</p>
     </div>
     <div class="feature reveal" style="transition-delay:0.12s">
       <span class="feature-num">02</span>
-      <p class="feature-title">Precision Fit</p>
+      <p class="feature-title chrome-text">Precision Fit</p>
       <p class="feature-desc">Engineered to 0.1mm tolerances for AirPods Pro 3 and AirPods 4. Lid closes with a magnetic snap. Wireless charging unobstructed.</p>
     </div>
     <div class="feature reveal" style="transition-delay:0.24s">
       <span class="feature-num">03</span>
-      <p class="feature-title">Sculpted Form</p>
+      <p class="feature-title chrome-text">Sculpted Form</p>
       <p class="feature-desc">Organic, flowing geometry inspired by liquid metal. Each surface catches light differently. No two angles look the same.</p>
     </div>
   </section>
@@ -576,7 +603,7 @@
       />
     </div>
     <div class="detail-content reveal" style="transition-delay:0.15s">
-      <h2>Own the<br><em>reflection.</em></h2>
+      <h2>Own the<br><em class="chrome-text">reflection.</em></h2>
       <p>
         Each case is individually polished through a multi-stage process — the same
         used in precision automotive and aerospace parts. The result is a mirror surface
@@ -597,7 +624,7 @@
   <!-- EMAIL -->
   <section class="email-section">
     <span class="email-eyebrow">Limited Drops</span>
-    <h2 class="email-title">Own the<br><span class="thin">Reflection.</span></h2>
+    <h2 class="email-title">Own the<br><span class="thin chrome-text">Reflection.</span></h2>
     <p class="email-sub">Join the list to get early access.</p>
     <div class="email-form">
       <input type="email" placeholder="your@email.com" />
@@ -607,7 +634,22 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-logo">Liquisity</div>
+    <div class="footer-logo">
+      <svg width="110" height="28" viewBox="0 0 130 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Liquisity">
+        <defs>
+          <linearGradient id="footerLogoGrad" x1="0" y1="0" x2="130" y2="32" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stop-color="#b0b8c0"/>
+            <stop offset="28%"  stop-color="#e0e0e0"/>
+            <stop offset="50%"  stop-color="#9aa2aa"/>
+            <stop offset="72%"  stop-color="#d0d0d0"/>
+            <stop offset="100%" stop-color="#8a9098"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="5.5" cy="4.5" rx="2.5" ry="3.5" fill="url(#footerLogoGrad)" opacity="0.7"/>
+        <path d="M5.5 7.5 Q4 11 5.5 13 Q7 11 5.5 7.5Z" fill="url(#footerLogoGrad)" opacity="0.7"/>
+        <text x="14" y="24" font-family="'Cormorant Garamond', serif" font-size="22" font-weight="400" letter-spacing="1.5" fill="#555">Liquisity</text>
+      </svg>
+    </div>
     <p class="footer-copy">© 2026 Liquisity. All rights reserved.</p>
     <ul class="footer-links">
       <li><a href="#">Instagram</a></li>
